@@ -18,7 +18,7 @@ Case.prototype.dessine = function(y) {
     retour.attr('class', 'img-responsive colonne' + y.toString());
     retour.attr('onmouseover', 'selection(' + y.toString() + ')');
     retour.attr('onmouseout', 'deselection(' + y.toString() + ')');
-    retour.attr('onclick', 'jouer(' + y.toString() +')');
+    //retour.attr('onclick', 'jouerColonne(' + y.toString() +')');
 
     return retour;
 }
@@ -118,7 +118,7 @@ var flecheDessineLigne = function() {
     var retour = $('<tr />');
     for(var x = 0; x < 7; ++x) {
         retour.append(
-            $('<td id="case' + x.toString() + '" valign="top" />').append(
+            $('<td id="caseFleche' + x.toString() + '" valign="top" />').append(
                 '<img id="fleche' + x.toString() + '" src="img/fleche2.png" class="img-responsive" style="visibility: hidden;">'
             )
         );
@@ -145,8 +145,7 @@ var tableauPlein = function() {
  * @returns {boolean}
  */
 var colonnePleine = function(numColonne) {
-   // var cellule = $('#case0' + numColonne);
-    if($('#case0' + numColonne).style.backgroundcolor = '#C7F7FF') //ICI
+    if($('#case' + numColonne +'0').css('background-color') == 'rgb(199, 247, 255)') //verifie si le background est bleu clair (case vide)
         return false;
     return true;
 }
@@ -173,9 +172,22 @@ var initialiserPlateau = function() {
 var jouer = function(numColonne) {
     var resultatPartie = 0;
     initialiserPlateau();
+    console.log('ici');
     while (resultatPartie == EN_COURS && !tableauPlein()) {
+        //afficher le tableau
+        //joueur joue
+        //si gagné
+            //resultatPartie = joueur
+        //else
+            //changerJoueur()
+        //
         console.log('en cours');
     }
+    //si (resultatPartie == EN_COURS)
+        //afficher partie nulle
+    //else
+        //afficher joueur a gagné
+    console.log('là');
 }
 
 
