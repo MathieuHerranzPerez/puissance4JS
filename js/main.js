@@ -88,7 +88,8 @@ Grille.prototype.ligne = function(x) {
 	var retour = $('<tr />');
 	for(var y = 0 ; y < this.tailleL; ++y) {
 		retour.append(
-            $('<td id="case' + y.toString() +''+ x.toString() + '" valign="top" style="background-color: #C7F7FF;" />').append(
+            $('<td id="case' + y.toString() +''+ x.toString() + '" valign="top" style="background-color: #C7F7FF;" ' +
+                'class="clickable" onclick="jouerColonne(' + y + ')" />').append(
                 this.tableau[x][y].dessine(y)
             )
         );
@@ -153,12 +154,11 @@ var colonnePleine = function(numColonne) {
 const JOUEUR1 = 1;              //joueur 1
 const JOUEUR2 = 2;              //joueur 2
 const EN_COURS = 0;             //si on est en cours de partie ou egalité
+var JOUEUR = 1;
 
-var changerJoueur = function() {
-    if(joueur == JOUEUR1)
-        joueur = JOUEUR2;
-    else
-        joueur = JOUEUR1;
+
+var changerJoueur = function(nvJoueur) {
+    JOUEUR = nvJoueur;
 }
 
 var initialiserPlateau = function() {
@@ -169,7 +169,27 @@ var initialiserPlateau = function() {
     $('#fleches').append(flecheDessine());
 }
 
-var jouer = function(numColonne) {
+jouerColonne = function(numColonne) {
+    console.log(numColonne);
+    if(colonnePleine(numColonne))
+        alert('Cette colonne est déjà pleine');
+    for(var i = 1; i < Grille.TailleH; ++i) {
+        if($('#case' + numColonne + '' + i).css('background-color') == 'rgb(199, 247, 255)')
+            continue;
+        else {
+            if (JOUEUR == JOUEUR1) {      //C'est le joueur 1 qui joue
+                $('#case' + numColonne + '' + i - 1).style.backgroundColor = 'red';
+                changerJoueur(JOUEUR2);
+            }
+            else {                      //C'est le joueur 2 qui joue
+                $('#case' + numColonne + '' + i - 1).style.backgroundColor = 'yellow';
+                changerJoueur(JOUEUR1);
+            }
+        }// à finir
+    }
+}
+
+/*var jouer = function(numColonne) {
     var resultatPartie = 0;
     initialiserPlateau();
     console.log('ici');
@@ -188,7 +208,9 @@ var jouer = function(numColonne) {
     //else
         //afficher joueur a gagné
     console.log('là');
-}
+}*/
+
+
 
 
 //#########################################################
@@ -287,11 +309,16 @@ $(document).ready(function() {
     $('#boutonCreerPartie').click(function(){
         $(this).slideUp();
         $('#jeu').slideDown();
-        jouer();
+        initialiserPlateau();
+
+        //jouer();
         /*var grille = new Grille();
         //grille.initialise();
         $('#plateau').append(grille.dessine());
         console.log(grille.dessine());
         $('#fleches').append(flecheDessine());*/
     });
+
+    //$('.clickable').click(function() {console.log('LA');});
+
 });
