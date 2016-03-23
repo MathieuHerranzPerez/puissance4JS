@@ -18,7 +18,7 @@ Case.prototype.dessine = function(y) {
     retour.attr('class', 'img-responsive colonne' + y.toString());
     retour.attr('onmouseover', 'selection(' + y.toString() + ')');
     retour.attr('onmouseout', 'deselection(' + y.toString() + ')');
-    //retour.attr('onclick', 'jouerColonne(' + y.toString() +')');
+    retour.attr('onclick', 'jouerColonne(' + y.toString() +')');
 
     return retour;
 }
@@ -89,7 +89,7 @@ Grille.prototype.ligne = function(x) {
 	for(var y = 0 ; y < this.tailleL; ++y) {
 		retour.append(
             $('<td id="case' + y.toString() +''+ x.toString() + '" valign="top" style="background-color: #C7F7FF;" ' +
-                'class="clickable" onclick="jouerColonne(' + y + ')" />').append(
+                'class="clickable" /*onclick="jouerColonne(' + y + ')"*/ />').append(
                 this.tableau[x][y].dessine(y)
             )
         );
@@ -151,12 +151,18 @@ var colonnePleine = function(numColonne) {
     return true;
 }
 
-const JOUEUR1 = 1;              //joueur 1
-const JOUEUR2 = 2;              //joueur 2
-const EN_COURS = 0;             //si on est en cours de partie ou egalité
-var JOUEUR = 1;
+const JOUEUR1 = 1;              // joueur 1
+const JOUEUR2 = 2;              // joueur 2
+const EN_COURS = 0;             // si on est en cours de partie ou egalité
+var JOUEUR = 1;                 // joueur courant
 
-
+/**
+ * change le joueur courant par le nouveau joueur
+ * @param nvJoueur
+ * @see JOUEUR1
+ * @see JOUEUR2
+ * @see JOUEUR
+ */
 var changerJoueur = function(nvJoueur) {
     JOUEUR = nvJoueur;
 }
@@ -165,29 +171,45 @@ var initialiserPlateau = function() {
     var grille = new Grille();
     //grille.initialise();
     $('#plateau').append(grille.dessine());
-    console.log(grille.dessine());
     $('#fleches').append(flecheDessine());
 }
 
+var verifierGain = function (numColonne, numLigne) {
+    var nbAligne = 0;
+
+}
+
+/**
+ * insert le pion du joueur courrant dans une colonne, puis appelle la fonction changerJoueur()
+ * @param numColonne
+ * @see changerJoueur()
+ */
 jouerColonne = function(numColonne) {
-    console.log(numColonne);
-    if(colonnePleine(numColonne))
+    if(colonnePleine(numColonne)) {
         alert('Cette colonne est déjà pleine');
-    for(var i = 1; i < Grille.TailleH; ++i) {
-        if($('#case' + numColonne + '' + i).css('background-color') == 'rgb(199, 247, 255)')
+        return;
+    }
+    for(var o = 1; o < 7; ++o){             // place le pion en sur les autres pions de la colonne
+        if($('#case' + numColonne + '' + o).css('background-color') == 'rgb(199, 247, 255)' ||
+            $('#case' + numColonne + '' + o).css('background-color') == 'yellow)' ||
+            $('#case' + numColonne + '' + o).css('background-color') == 'red') {
             continue;
+        }
         else {
             if (JOUEUR == JOUEUR1) {      //C'est le joueur 1 qui joue
-                $('#case' + numColonne + '' + i - 1).style.backgroundColor = 'red';
+                $('#case' + numColonne + '' + (o - 1)).css('background-color', 'red');
                 changerJoueur(JOUEUR2);
+                break;
             }
-            else {                      //C'est le joueur 2 qui joue
-                $('#case' + numColonne + '' + i - 1).style.backgroundColor = 'yellow';
+            else {                        //C'est le joueur 2 qui joue
+                $('#case' + numColonne + '' + (o - 1)).css('background-color', 'yellow');
                 changerJoueur(JOUEUR1);
+                break;
             }
-        }// à finir
+        }
+        verifierGain();
     }
-}
+} // jouerColonne()
 
 /*var jouer = function(numColonne) {
     var resultatPartie = 0;
@@ -319,6 +341,10 @@ $(document).ready(function() {
         $('#fleches').append(flecheDessine());*/
     });
 
-    //$('.clickable').click(function() {console.log('LA');});
+    $('#boutonReset').click(function() {
+        $('#plateau').empty();
+        $('#fleches').empty();
+        initialiserPlateau();
+    })
 
 });

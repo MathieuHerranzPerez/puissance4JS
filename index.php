@@ -81,12 +81,12 @@
 
         <div id="jeu" style="display: none">
             <button type="button" class="btn btn-warning" id="boutonReset" >REINITIALISER</button>
-            <div id="fleches">
+                <div id="fleches">
 
-            </div>
-            <div id="plateau">
-                
-            </div>
+                </div>
+                <div id="plateau">
+
+                </div>
         </div>
 
       </div>
