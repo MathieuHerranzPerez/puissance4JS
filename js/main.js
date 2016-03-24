@@ -163,8 +163,11 @@ var JOUEUR = 1;                 // joueur courant
  * @see JOUEUR2
  * @see JOUEUR
  */
-var changerJoueur = function(nvJoueur) {
-    JOUEUR = nvJoueur;
+var changerJoueur = function() {
+    if(JOUEUR == JOUEUR1)
+        JOUEUR = JOUEUR2;
+    else
+        JOUEUR = JOUEUR1;
 }
 
 var initialiserPlateau = function() {
@@ -175,8 +178,64 @@ var initialiserPlateau = function() {
 }
 
 var verifierGain = function (numColonne, numLigne) {
-    var nbAligne = 0;
+    var nbAligne = 1;
+    var couleur = $('#case' + numColonne + '' + numLigne).data('joueur');  //couleur de la nouvelle case
 
+    console.log(couleur);
+    if(numLigne <= 2) {             //On la colonne verticale
+        for(var i = 1; i < 4; ++i) {
+            if ($('#case' + numColonne + '' + (numLigne + i)).data('joueur') == couleur) {
+                nbAligne += 1;
+            }
+            else
+                break;
+        }
+        if(nbAligne == 4)
+            return true;
+    }
+    nbAligne = 1;
+    /*for(var i = 1; i < 4; ++i) {    // diagonale de pente -1
+        if((numLigne - i) >= 0 && (numColonne - i) >= 0 &&
+            $('#case' + (numColonne - i)+ '' + (numLigne - i)).data('joueur') == couleur) {
+            nbAligne += 1;
+        }
+        if((numLigne + i) < 6 && (numColonne + i) < 7 &&
+            $('#case' + (numColonne + i) + '' + (numLigne + i)).css('background-color') == couleur) {
+            nbAligne += 1;
+        }
+    }
+    if (nbAligne == 4)
+        return true;
+    nbAligne = 1;
+
+    /*for(var i = 1; i < 4; ++i) {    // diagonale de pente 1
+        if((numLigne + i) < 6 && (numColonne - i) >= 0 &&
+            $('#case' + (numColonne - i) + '' + (numLigne + i)).css('background-color') == couleur) {
+            nbAligne += 1;
+        }
+        if((numLigne - i) >= 0 && (numColonne + i) < 7 &&
+            $('#case' + (numColonne + i) + '' + (numLigne - i)).css('background-color') == couleur) {
+            nbAligne += 1;
+        }
+    }
+    if (nbAligne == 4)
+        return true;
+    nbAligne = 1;
+*/
+    for(var i = 1; i < 4; ++i) {    // On regarde la ligne horizontale
+        if((numColonne - i) >= 0 &&
+            $('#case' + (numColonne - i) + '' + numLigne).data('joueur') == couleur) {
+            nbAligne += 1;
+        }
+        if((numColonne + i) < 7 &&
+            $('#case' + (numColonne + i) + '' + numLigne).data('joueur') == couleur) {
+            nbAligne += 1;
+        }
+    }
+    if (nbAligne == 4) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -189,25 +248,28 @@ jouerColonne = function(numColonne) {
         alert('Cette colonne est déjà pleine');
         return;
     }
-    for(var o = 1; o < 7; ++o){             // place le pion en sur les autres pions de la colonne
-        if($('#case' + numColonne + '' + o).css('background-color') == 'rgb(199, 247, 255)' ||
-            $('#case' + numColonne + '' + o).css('background-color') == 'yellow)' ||
-            $('#case' + numColonne + '' + o).css('background-color') == 'red') {
+    for(var o = 1; o < 7; ++o){             // place le pion sur les autres pions de la colonne
+        if($('#case' + numColonne + '' + o).css('background-color') == 'rgb(199, 247, 255)') {
             continue;
         }
         else {
-            if (JOUEUR == JOUEUR1) {      //C'est le joueur 1 qui joue
-                $('#case' + numColonne + '' + (o - 1)).css('background-color', 'red');
-                changerJoueur(JOUEUR2);
-                break;
+            var couleur = '';
+            if (JOUEUR == JOUEUR1) {
+                couleur = 'red';
+            } else {
+                couleur = 'yellow';
             }
-            else {                        //C'est le joueur 2 qui joue
-                $('#case' + numColonne + '' + (o - 1)).css('background-color', 'yellow');
-                changerJoueur(JOUEUR1);
+            if (couleur) {
+                $('#case' + numColonne + '' + (o - 1))
+                    .css('background-color', couleur)
+                    .data('joueur', couleur);
+                if(verifierGain(numColonne, o - 1)) {
+                    alert('Le joueur ');
+                }
+                changerJoueur();
                 break;
             }
         }
-        verifierGain();
     }
 } // jouerColonne()
 
