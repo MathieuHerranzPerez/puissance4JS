@@ -153,12 +153,10 @@ var colonnePleine = function(numColonne) {
 
 const JOUEUR1 = 1;              // joueur 1
 const JOUEUR2 = 2;              // joueur 2
-const EN_COURS = 0;             // si on est en cours de partie ou egalité
 var JOUEUR = 1;                 // joueur courant
 
 /**
  * change le joueur courant par le nouveau joueur
- * @param nvJoueur
  * @see JOUEUR1
  * @see JOUEUR2
  * @see JOUEUR
@@ -175,8 +173,14 @@ var initialiserPlateau = function() {
     //grille.initialise();
     $('#plateau').append(grille.dessine());
     $('#fleches').append(flecheDessine());
-}
 
+}
+/**
+ * verifie si quatre jetons de même couleur sont alignés
+ * @param numColonne
+ * @param numLigne
+ * @returns {boolean}
+ */
 var verifierGain = function (numColonne, numLigne) {
     var nbAligne = 1;
     var couleur = $('#case' + numColonne + '' + numLigne).data('joueur');  //couleur de la nouvelle case
@@ -194,13 +198,13 @@ var verifierGain = function (numColonne, numLigne) {
             return true;
     }
     nbAligne = 1;
-    /*for(var i = 1; i < 4; ++i) {    // diagonale de pente -1
+    for(var i = 1; i < 4; ++i) {    // On regarde la diagonale de pente -1
         if((numLigne - i) >= 0 && (numColonne - i) >= 0 &&
             $('#case' + (numColonne - i)+ '' + (numLigne - i)).data('joueur') == couleur) {
             nbAligne += 1;
         }
         if((numLigne + i) < 6 && (numColonne + i) < 7 &&
-            $('#case' + (numColonne + i) + '' + (numLigne + i)).css('background-color') == couleur) {
+            $('#case' + (numColonne + i)+ '' + (numLigne + i)).data('joueur') == couleur) {
             nbAligne += 1;
         }
     }
@@ -208,20 +212,20 @@ var verifierGain = function (numColonne, numLigne) {
         return true;
     nbAligne = 1;
 
-    /*for(var i = 1; i < 4; ++i) {    // diagonale de pente 1
+    for(var i = 1; i < 4; ++i) {    // On regarde la diagonale de pente 1
         if((numLigne + i) < 6 && (numColonne - i) >= 0 &&
-            $('#case' + (numColonne - i) + '' + (numLigne + i)).css('background-color') == couleur) {
+            $('#case' + (numColonne - i)+ '' + (numLigne + i)).data('joueur') == couleur) {
             nbAligne += 1;
         }
         if((numLigne - i) >= 0 && (numColonne + i) < 7 &&
-            $('#case' + (numColonne + i) + '' + (numLigne - i)).css('background-color') == couleur) {
+            $('#case' + (numColonne + i)+ '' + (numLigne - i)).data('joueur') == couleur) {
             nbAligne += 1;
         }
     }
     if (nbAligne == 4)
         return true;
     nbAligne = 1;
-*/
+
     for(var i = 1; i < 4; ++i) {    // On regarde la ligne horizontale
         if((numColonne - i) >= 0 &&
             $('#case' + (numColonne - i) + '' + numLigne).data('joueur') == couleur) {
@@ -236,7 +240,7 @@ var verifierGain = function (numColonne, numLigne) {
         return true;
     }
     return false;
-}
+} //verifierGain()
 
 /**
  * insert le pion du joueur courrant dans une colonne, puis appelle la fonction changerJoueur()
@@ -259,12 +263,16 @@ jouerColonne = function(numColonne) {
             } else {
                 couleur = 'yellow';
             }
-            if (couleur) {
+            if (couleur) {                  //tout le temps
                 $('#case' + numColonne + '' + (o - 1))
                     .css('background-color', couleur)
                     .data('joueur', couleur);
                 if(verifierGain(numColonne, o - 1)) {
-                    alert('Le joueur ');
+                    alert('Le joueur ' + JOUEUR + ' a gagné !');
+                    refairePlateau();
+                }
+                if(tableauPlein()) {
+                    alert('Egalité ...');
                 }
                 changerJoueur();
                 break;
@@ -273,29 +281,11 @@ jouerColonne = function(numColonne) {
     }
 } // jouerColonne()
 
-/*var jouer = function(numColonne) {
-    var resultatPartie = 0;
+var refairePlateau = function() {
+    $('#plateau').empty();
+    $('#fleches').empty();
     initialiserPlateau();
-    console.log('ici');
-    while (resultatPartie == EN_COURS && !tableauPlein()) {
-        //afficher le tableau
-        //joueur joue
-        //si gagné
-            //resultatPartie = joueur
-        //else
-            //changerJoueur()
-        //
-        console.log('en cours');
-    }
-    //si (resultatPartie == EN_COURS)
-        //afficher partie nulle
-    //else
-        //afficher joueur a gagné
-    console.log('là');
-}*/
-
-
-
+}
 
 //#########################################################
 
@@ -394,19 +384,10 @@ $(document).ready(function() {
         $(this).slideUp();
         $('#jeu').slideDown();
         initialiserPlateau();
-
-        //jouer();
-        /*var grille = new Grille();
-        //grille.initialise();
-        $('#plateau').append(grille.dessine());
-        console.log(grille.dessine());
-        $('#fleches').append(flecheDessine());*/
     });
 
     $('#boutonReset').click(function() {
-        $('#plateau').empty();
-        $('#fleches').empty();
-        initialiserPlateau();
+        refairePlateau();
     })
 
 });
