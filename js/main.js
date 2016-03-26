@@ -21,7 +21,7 @@ Case.prototype.dessine = function(y) {
     retour.attr('onclick', 'jouerColonne(' + y.toString() +')');
 
     return retour;
-}
+};
 
 /**
  * Rend la fleche au dessus de la colonne visible et blanchie la colonne de y
@@ -30,7 +30,7 @@ Case.prototype.dessine = function(y) {
 var selection = function(y) {
     $('#fleche' + y).css({'visibility': 'visible'});
     $('.colonne' + y).css({'opacity': '0.8'});
-}
+};
 
 /**
  * Rend la fleche au dessus de la colonne invisible et retablie la couleur de la colonne de y
@@ -39,7 +39,7 @@ var selection = function(y) {
 var deselection = function(y) {
     $('#fleche' + y).css({'visibility': 'hidden'});
     $('.colonne' + y).css({'opacity': '1'});
-}
+};
 
 //################# Class Grille ############################
 
@@ -69,14 +69,10 @@ Grille.prototype.dessine = function() {
     var retour = $('<table />');
     for(var x = 0; x<this.tailleH; ++x) {
         retour.append(this.ligne(x));
-    };
-
+    }
     return retour;
-}
+};
 
-Grille.prototype.aJour = function() {
-
-}
 
 /**
  * Recupere le numero de la ligne 'x' pour initialiser les colonnes et appele la fonction Case.dessine()
@@ -93,9 +89,9 @@ Grille.prototype.ligne = function(x) {
                 this.tableau[x][y].dessine(y)
             )
         );
-	};
+	}
 	return retour;
-}
+};
 
 
 //#########################################################
@@ -109,7 +105,7 @@ var flecheDessine = function() {
     var retour = $('<table />');
     retour.append(flecheDessineLigne());
     return retour;
-}
+};
 
 /**
  * dessine les fleches avec les attributs class=img-responsive, visibility: hidden et id="flecheX" où X est le numero de colonne de la fleche
@@ -125,7 +121,7 @@ var flecheDessineLigne = function() {
         );
     }
     return retour;
-}
+};
 
 /**
  * verifie si le tableau est plein en appelant colonnePleine()
@@ -133,12 +129,12 @@ var flecheDessineLigne = function() {
  * @see colonnePleine
  */
 var tableauPlein = function() {
-    for(var numColonne = 0; numColonne < 6; ++numColonne) {
+    for(var numColonne = 0; numColonne < 7; ++numColonne) {
         if(!colonnePleine(numColonne))
             return false;
     }
     return true;
-}
+};
 
 /**
  * Verifie si la colonne est pleine
@@ -149,7 +145,7 @@ var colonnePleine = function(numColonne) {
     if($('#case' + numColonne +'0').css('background-color') == 'rgb(199, 247, 255)') //verifie si le background est bleu clair (case vide)
         return false;
     return true;
-}
+};
 
 const JOUEUR1 = 1;              // joueur 1
 const JOUEUR2 = 2;              // joueur 2
@@ -168,18 +164,17 @@ var changerJoueur = function() {
         JOUEUR = JOUEUR1;
 
     $('.jeton').toggle();
-}
+};
 
 var initialiserPlateau = function() {
     var grille = new Grille();
-    //grille.initialise();
     $('#plateau').append(grille.dessine());
     $('#plateau').append('<img class="jeton img-responsive" id="jetonR" src="img/jetonR.png" style="display: block;">');
     $('#plateau').append('<img class="jeton img-responsive" id="jetonJ" src="img/jetonJ.png" style="display: none;">');
     $('#fleches').append(flecheDessine());
     JOUEUR = JOUEUR1;
+};
 
-}
 /**
  * verifie si quatre jetons de même couleur sont alignés
  * @param numColonne
@@ -265,7 +260,7 @@ var verifierGain = function (numColonne, numLigne) {
     }
     return false;
 
-} //verifierGain()
+}; //verifierGain()
 
 /**
  * insert le pion du joueur courrant dans une colonne, puis appelle la fonction changerJoueur()
@@ -304,13 +299,13 @@ jouerColonne = function(numColonne) {
             }
         }
     }
-} // jouerColonne()
+}; // jouerColonne()
 
 var refairePlateau = function() {
     $('#plateau').empty();
     $('#fleches').empty();
     initialiserPlateau();
-}
+};
 
 //#########################################################
 
