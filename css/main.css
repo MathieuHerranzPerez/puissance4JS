@@ -15,6 +15,24 @@
 #plateau {
     margin-bottom: 50px;
 }
+.jeton {
+    position: absolute;
+    height: 80px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 765px) {
+    .jeton {
+        height: 70px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .jeton {
+        height: 50px;
+    }
+}
+
+
 
 
 

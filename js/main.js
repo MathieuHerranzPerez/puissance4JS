@@ -166,12 +166,16 @@ var changerJoueur = function() {
         JOUEUR = JOUEUR2;
     else
         JOUEUR = JOUEUR1;
+
+    $('.jeton').toggle();
 }
 
 var initialiserPlateau = function() {
     var grille = new Grille();
     //grille.initialise();
     $('#plateau').append(grille.dessine());
+    $('#plateau').append('<img class="jeton img-responsive" id="jetonR" src="img/jetonR.png" style="display: block;">');
+    $('#plateau').append('<img class="jeton img-responsive" id="jetonJ" src="img/jetonJ.png" style="display: none;">');
     $('#fleches').append(flecheDessine());
 
 }
@@ -186,7 +190,9 @@ var verifierGain = function (numColonne, numLigne) {
     var couleur = $('#case' + numColonne + '' + numLigne).data('joueur');  //couleur de la nouvelle case
 
     console.log(couleur);
-    if(numLigne <= 2) {             //On la colonne verticale
+
+
+    if(numLigne <= 2) {                                  //On regarde la colonne verticale
         for(var i = 1; i < 4; ++i) {
             if ($('#case' + numColonne + '' + (numLigne + i)).data('joueur') == couleur) {
                 nbAligne += 1;
@@ -197,49 +203,67 @@ var verifierGain = function (numColonne, numLigne) {
         if(nbAligne == 4)
             return true;
     }
-    nbAligne = 1;
-    for(var i = 1; i < 4; ++i) {    // On regarde la diagonale de pente -1
-        if((numLigne - i) >= 0 && (numColonne - i) >= 0 &&
-            $('#case' + (numColonne - i)+ '' + (numLigne - i)).data('joueur') == couleur) {
-            nbAligne += 1;
-        }
-        if((numLigne + i) < 6 && (numColonne + i) < 7 &&
-            $('#case' + (numColonne + i)+ '' + (numLigne + i)).data('joueur') == couleur) {
-            nbAligne += 1;
-        }
-    }
-    if (nbAligne == 4)
-        return true;
-    nbAligne = 1;
+    nbAligne = 0;
 
-    for(var i = 1; i < 4; ++i) {    // On regarde la diagonale de pente 1
-        if((numLigne + i) < 6 && (numColonne - i) >= 0 &&
-            $('#case' + (numColonne - i)+ '' + (numLigne + i)).data('joueur') == couleur) {
-            nbAligne += 1;
-        }
-        if((numLigne - i) >= 0 && (numColonne + i) < 7 &&
-            $('#case' + (numColonne + i)+ '' + (numLigne - i)).data('joueur') == couleur) {
-            nbAligne += 1;
-        }
-    }
-    if (nbAligne == 4)
-        return true;
-    nbAligne = 1;
+    // On se prepare à regarder la diagonale de pente -1, on se place le plus en bas à droite possible
 
-    for(var i = 1; i < 4; ++i) {    // On regarde la ligne horizontale
-        if((numColonne - i) >= 0 &&
-            $('#case' + (numColonne - i) + '' + numLigne).data('joueur') == couleur) {
-            nbAligne += 1;
-        }
-        if((numColonne + i) < 7 &&
-            $('#case' + (numColonne + i) + '' + numLigne).data('joueur') == couleur) {
-            nbAligne += 1;
+    for(var i = 0; i < 6; ++i) {
+        if(numLigne + i == 5 || numColonne + i == 6) {
+            var numLigneInter = numLigne + i;
+            var numColonneInter = numColonne + i;
+
+            for(var j = 0; j < 6; ++j) {                    // On regarde la diagonale de pente - 1
+                if($('#case' + (numColonneInter - j) + '' + (numLigneInter - j)).data('joueur') == couleur) {
+                    nbAligne += 1;
+                    if (nbAligne == 4) {
+                        return true;
+                    }
+                }
+                else {
+                    nbAligne = 0;
+                }
+            }
+            break;
         }
     }
-    if (nbAligne == 4) {
-        return true;
+    nbAligne = 0;
+
+    // On se prepare à regarder la diagonale de pente 1, on se place le plus en bas à guache possible
+
+    for(var i = 0; i < 6; ++i) {
+        if(numLigne + i == 5 || numColonne - i == 0) {
+            var numLigneInter = numLigne + i;
+            var numColonneInter = numColonne - i;
+
+            for(var j = 0; j < 6; ++j) {                    // On regarde la diagonale de pente - 1
+                if($('#case' + (numColonneInter + j) + '' + (numLigneInter - j)).data('joueur') == couleur) {
+                    nbAligne += 1;
+                    if (nbAligne == 4) {
+                        return true;
+                    }
+                }
+                else {
+                    nbAligne = 0;
+                }
+            }
+            break;
+        }
+    }
+    nbAligne = 0;
+
+    for(var i = 0; i < 7; ++i) {                            // On regarde la ligne horizontale
+        if($('#case' + (i) + '' + numLigne).data('joueur') == couleur) {
+            nbAligne += 1;
+            if (nbAligne == 4) {
+                return true;
+            }
+        }
+        else {
+            nbAligne = 0;
+        }
     }
     return false;
+
 } //verifierGain()
 
 /**
@@ -268,7 +292,7 @@ jouerColonne = function(numColonne) {
                     .css('background-color', couleur)
                     .data('joueur', couleur);
                 if(verifierGain(numColonne, o - 1)) {
-                    alert('Le joueur ' + JOUEUR + ' a gagné !');
+                    alert('Le joueur ' + JOUEUR + ' (' + couleur + ') a gagné !');
                     refairePlateau();
                 }
                 if(tableauPlein()) {
