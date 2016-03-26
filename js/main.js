@@ -177,6 +177,7 @@ var initialiserPlateau = function() {
     $('#plateau').append('<img class="jeton img-responsive" id="jetonR" src="img/jetonR.png" style="display: block;">');
     $('#plateau').append('<img class="jeton img-responsive" id="jetonJ" src="img/jetonJ.png" style="display: none;">');
     $('#fleches').append(flecheDessine());
+    JOUEUR = JOUEUR1;
 
 }
 /**
@@ -315,35 +316,18 @@ var refairePlateau = function() {
 
 $(document).ready(function() {
 
-    /**
-     * effet sur la connexion
-     */
-    $.ajax({
-        method: "get",
-		url: "json_est_connecte.php",
-		dataType: 'json',
-		success: function(data) {
-           if (data.est_connecte) {
-                $('#form-logout').fadeIn();
-            }
-            else {
-                $('#form-login').fadeIn();
-            }
-            if (typeof(data.message)!= 'undefined') {
-                $('#message-contenu').html(data.message);
-                $('#message').slideDown();
-            }
-		},
-        error: function() {
-		    alert('erreur');
-	    }
+    $('#boutonRegles').click(function() {
+        $('#message').slideDown();
+        $('#boutonRegles').fadeOut();
     });
+
 
     /**
      * effet sur le bouton fermer
      */
     $('#message-btn-fermer').click(function(){
         $('#message').slideUp();
+        $('#boutonRegles').fadeIn();
     });
 
 
@@ -412,6 +396,6 @@ $(document).ready(function() {
 
     $('#boutonReset').click(function() {
         refairePlateau();
-    })
+    });
 
 });

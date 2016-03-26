@@ -4,6 +4,10 @@
    Author's custom styles
    ========================================================================== */
 
+#boutonRegles {
+    margin-top: 7px;
+}
+
 #message-btn-fermer {
     margin-bottom: 30px;
 }

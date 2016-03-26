@@ -40,7 +40,7 @@
           <a class="navbar-brand" href="#">Puissance 4</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form id="form-login" 
+          <!--<form id="form-login"
                 class="navbar-form navbar-right" 
                 role="form" method="post" 
                 action="json_login.php" 
@@ -52,15 +52,16 @@
               <input type="password" placeholder="Password" class="form-control" id="password" name="password">
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-          <form id="form-logout" 
+          </form> -->
+            <button type="button" class="btn btn-success" id="boutonRegles">Règles du jeu</button>
+         <!-- <form id="form-logout"
                 class="navbar-form navbar-right" 
                 role="form" 
                 method="post" 
                 action="json_logout.php"
                 style="display: none">
                   <button class="btn btn-danger" type="submit" title="deconnection">Logout</button>
-          </form>
+          </form> -->
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -72,7 +73,12 @@
 
         <div id="message" class="row" style="display: none">
             <div class="col-md-12">
-                <h1 id="message-contenu">message caché</h1>
+                <p1 id="message-contenu">Le but du jeu est d'aligner 4 pions. Chaque joueur dispose de pions d'une couleur.
+                    Tour à tour les deux joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu'à
+                    la position la plus basse possible dans la dite colonne, à la suite de quoi c'est à l'adversaire de jouer.
+                    Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) d'au moins
+                    quatre pions de sa couleur. Si, alors que toutes les cases de la grille de jeu sont remplies, aucun des deux joueurs
+                    n'a réalisé un tel alignement, la partie est déclarée nulle.</p1></br>
                 <button type="button" class="btn btn-success" id="message-btn-fermer">Fermer</button>
             </div>
         </div>
