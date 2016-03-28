@@ -1,5 +1,4 @@
 
-
 //############### Class Case ###############################
 
 function Case() {
@@ -48,7 +47,7 @@ var deselection = function(y) {
  * @constructor
  */
 function Grille() {
-	this.tailleL = 7;
+    this.tailleL = 7;
     this.tailleH = 6;
     this.tableau = new Array();
     for(var y = 0; y < this.tailleH; ++y) {
@@ -81,16 +80,16 @@ Grille.prototype.dessine = function() {
  * @see Case.prototype.dessine
  */
 Grille.prototype.ligne = function(x) {
-	var retour = $('<tr />');
-	for(var y = 0 ; y < this.tailleL; ++y) {
-		retour.append(
+    var retour = $('<tr />');
+    for(var y = 0 ; y < this.tailleL; ++y) {
+        retour.append(
             $('<td id="case' + y.toString() +''+ x.toString() + '" valign="top" style="background-color: #C7F7FF;" ' +
                 'class="clickable" /*onclick="jouerColonne(' + y + ')"*/ />').append(
                 this.tableau[x][y].dessine(y)
             )
         );
-	}
-	return retour;
+    }
+    return retour;
 };
 
 
@@ -301,13 +300,16 @@ jouerColonne = function(numColonne) {
     }
 }; // jouerColonne()
 
+/**
+ * vide les div de plateau et fleches pour réinitialiser le jeu
+ */
 var refairePlateau = function() {
     $('#plateau').empty();
     $('#fleches').empty();
     initialiserPlateau();
 };
 
-//#########################################################
+//######################################################
 
 $(document).ready(function() {
 
@@ -325,64 +327,6 @@ $(document).ready(function() {
         $('#boutonRegles').fadeIn();
     });
 
-
-    /**
-     * Pour la connexion
-     */
-    $('#form-login').submit(function() {
-	    $.ajax({
-            method: $(this).attr('method'),
-		    url: $(this).attr('action'),
-            data: $(this).serialize(),
-		    dataType: 'json',
-		    success: function(data) {
-			    if (data.success) {
-                    $('#form-logout').fadeIn();
-                }
-                else {
-                }
-                if (typeof(data.message) != 'undefined') {
-                    $('#message-contenu').html(data.message);
-                    $('#message').slideDown();
-                }
-		    },
-            error: function() {
-		        alert('erreur');
-	        }
-        });
-        $(this).hide();
-        return false;
-    });
-
-    /**
-     * pour la deconnexion
-     */
-    $('#form-logout').submit(function() {
-        $.ajax({
-            method: $(this).attr('method'),
-		    url: $(this).attr('action'),
-            data: $(this).serialize(),
-		    dataType: 'json',
-		    success: function(data) {
-			    if (data.success) {
-                    $('#form-login').fadeIn();
-                }
-                else {
-                    console.log("erreur");
-                }
-                if (typeof(data.message)!= 'undefined') {
-                    $('#message-contenu').html(data.message);
-                    $('#message').slideDown();
-                }
-		    },
-            error: function() {
-		        alert('erreur');
-	        }
-        });
-        $(this).hide();
-        return false;
-    });
-
     $('#boutonCreerPartie').click(function(){
         $(this).slideUp();
         $('#jeu').slideDown();
@@ -392,5 +336,4 @@ $(document).ready(function() {
     $('#boutonReset').click(function() {
         refairePlateau();
     });
-
 });

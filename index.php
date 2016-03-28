@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Puissance 4 JS</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -19,6 +19,8 @@
                 padding-bottom: 20px;
             }
         </style>
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
 
@@ -108,6 +110,7 @@
     </div> <!-- /container -->
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/redirectionMobile.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
