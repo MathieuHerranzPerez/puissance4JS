@@ -313,8 +313,121 @@ var refairePlateau = function() {
 
 $(document).ready(function() {
 
+    /**
+     * annimation à la connection
+     */
+    $.ajax({
+        method: "get",
+        url: "json_est_connecte.php",
+        dataType: 'json',
+        success: function(data) {
+            if (data.est_connecte) {
+                $('#form-logout').fadeIn();
+            }
+            else {
+                $('#form-login').fadeIn();
+            }
+            if (typeof(data.message)!= 'undefined') {
+                $('#message-contenu').html(data.message);
+                $('#message').slideDown();
+            }
+        },
+        error: function() {
+            alert('erreur');
+        }
+    });
+
+
+
+    $('#message-btn-fermer').click(function(){
+        $('#message').slideUp();
+    });
+
+    $('#form-login').submit(function() {
+        $.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    $('#form-logout').fadeIn();
+                }
+                else {
+                }
+                if (typeof(data.message) != 'undefined') {
+                    $('#message-contenu').html(data.message);
+                    $('#message').slideDown();
+                    $('#boutonCreerPartie').fadeIn();
+                    //$('#bontonSign-in').fadeOut();
+                }
+            },
+            error: function() {
+                alert('erreur');
+            }
+        });
+        $(this).hide();
+        return false;
+    });
+
+    $('#form-logout').submit(function() {
+        $.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if (data.success) {
+                    $('#form-login').fadeIn();
+                }
+                else {
+                    console.log("erreur");
+                }
+                if (typeof(data.message)!= 'undefined') {
+                    $('#message-contenu').html(data.message);
+                    $('#message').slideDown();
+                    $('#boutonCreerPartie').fadeOut();
+                    $('#boutonReset').fadeOut();
+                    //$('#bontonSign-in').fadeIn();
+                    $('#plateau').empty();
+                    $('#fleches').empty();
+                }
+            },
+            error: function() {
+                alert('erreur');
+            }
+        });
+        $(this).hide();
+        return false;
+    });
+/*
+    $('#form-sign-in').submit(function() {
+        $.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(data) {
+                if (typeof(data.message) != 'undefined') {
+                    $('#message-contenu').html(data.message);
+                    $('#message').slideDown();
+                }
+            },
+            error: function() {
+                alert('erreur');
+            }
+        });
+        $(this).hide();
+        return false;
+    });
+
+    $('#bontonSign-in').click(function() {
+        $('#form-sign-in').fadeIn();
+    });
+*/
+
     $('#boutonRegles').click(function() {
-        $('#message').slideDown();
+        $('#messageRegle').slideDown();
         $('#boutonRegles').fadeOut();
     });
 
@@ -322,12 +435,14 @@ $(document).ready(function() {
     /**
      * effet sur le bouton fermer
      */
-    $('#message-btn-fermer').click(function(){
-        $('#message').slideUp();
+    $('#message-btn-fermerRegle').click(function(){
+        $('#messageRegle').slideUp();
         $('#boutonRegles').fadeIn();
     });
 
-    $('#boutonCreerPartie').click(function(){
+    $('#boutonCreerPartie')
+        .hide()
+        .click(function(){
         $(this).slideUp();
         $('#jeu').slideDown();
         initialiserPlateau();
