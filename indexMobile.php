@@ -58,7 +58,7 @@ body {
                         <div class="form-group">
                           <input type="password" placeholder="Password" class="form-control" id="password" name="password">
                         </div>
-                        <button type="submit" class="btn ">Login</button>
+                        <button type="submit" class="btn ">Login / sign in</button>
                         </form>
 
                         <!--<button type="button" class="btn btn-success" id="bontonSign-in" style="margin-top: 7px;">Sign-in</button>
@@ -77,14 +77,14 @@ body {
                             <button type="submit" class="btn btn-success">Sign-in</button>
                         </form> -->
 
-                        <button type="button" class="btn ui-btn ui-btn-inline" id="boutonRegles">Règles du jeu</button>
+                        <button type="button" class="ui-btn ui-icon-carat-d ui-shadow ui-corner-all ui-btn-icon-left ui-btn-inline" id="boutonRegles">Règles du jeu</button>
                         <form id="form-logout"
                             class="navbar-form navbar-right"
                             role="form"
                             method="post"
                             action="json_logout.php"
                             style="display: none">
-                              <button class="btn btn-danger" type="submit" title="deconnection">Logout</button>
+                              <button class="ui-btn ui-icon-power ui-shadow ui-corner-all ui-btn-icon-left ui-btn-inline" type="submit" title="deconnection">Logout</button>
                         </form>
                     </div><!--/.navbar-collapse -->
                   </div>
@@ -98,27 +98,27 @@ body {
 
                     <div id="messageRegle" class="row" style="display: none">
                         <div class="col-md-12">
-                            <p1 id="message-contenu">Le but du jeu est d'aligner 4 pions. Chaque joueur dispose de pions d'une couleur.
+                            <p1 id="messageRegle">Le but du jeu est d'aligner 4 pions. Chaque joueur dispose de pions d'une couleur.
             Tour à tour les deux joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu'à
                                 la position la plus basse possible dans la dite colonne, à la suite de quoi c'est à l'adversaire de jouer.
                                 Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) d'au moins
                                 quatre pions de sa couleur. Si, alors que toutes les cases de la grille de jeu sont remplies, aucun des deux joueurs
                                 n'a réalisé un tel alignement, la partie est déclarée nulle.</p1></br>
-                            <button type="button" class="btn btnfermer ui-btn ui-icon-delete ui-btn-icon-right" id="message-btn-fermerRegle">Fermer</button>
+                            <button type="button" class="btn btnfermer ui-btn ui-icon-carat-u ui-shadow ui-corner-all ui-btn-icon-left ui-btn-inline" id="message-btn-fermerRegle">Fermer</button>
                         </div>
                     </div>
 
                     <div id="message" class="row" style="display: none">
                         <div class="col-md-12">
                             <h1 id="message-contenu">On ne devrait pas voir ca</h1>
-                            <button type="button" class="btn btnfermer btn-primary ui-btn" id="message-btn-fermer">Fermer</button>
+                            <button type="button" class="btn btnfermer ui-btn ui-icon-delete ui-btn-icon-left ui-shadow-icon ui-btn-b" id="message-btn-fermer">Fermer</button>
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary ui-btn" id="boutonCreerPartie">CREER UNE PARTIE</button>
+                    <button type="button" class="ui-btn" id="boutonCreerPartie">CREER UNE PARTIE</button>
 
                     <div id="jeu" style="display: none">
-                        <button type="button" class="btn btn-warning ui-btn ui-icon-delete ui-btn-icon-right" id="boutonReset" >REINITIALISER</button>
+                        <button type="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-recycle ui-btn-b" id="boutonReset" >REINITIALISER</button>
                             <div id="fleches">
 
                             </div>
@@ -142,6 +142,9 @@ body {
                     <script src="js/vendor/jquery-1.11.2.min.js"></script>
                     <script src="js/vendor/bootstrap.min.js"></script>
                     <script src="js/main.js"></script>
+                <script language="JavaScript">
+                    styleCase = "img/caseVideMobile.png";
+                </script>
             </div>
         </div> <!-- data-role="page" -->
     </body>

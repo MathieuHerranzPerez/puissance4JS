@@ -13,7 +13,7 @@ function Case() {
 Case.prototype.dessine = function(y) {
     var retour = $('<img />');
 
-    retour.attr('src', 'img/caseVideTrans.png');
+    retour.attr('src', styleCase);
     retour.attr('class', 'img-responsive colonne' + y.toString());
     retour.attr('onmouseover', 'selection(' + y.toString() + ')');
     retour.attr('onmouseout', 'deselection(' + y.toString() + ')');
@@ -65,7 +65,7 @@ function Grille() {
  * @see Grille.prototype.ligne
  */
 Grille.prototype.dessine = function() {
-    var retour = $('<table />');
+    var retour = $('<table  />');
     for(var x = 0; x<this.tailleH; ++x) {
         retour.append(this.ligne(x));
     }
@@ -149,6 +149,7 @@ var colonnePleine = function(numColonne) {
 const JOUEUR1 = 1;              // joueur 1
 const JOUEUR2 = 2;              // joueur 2
 var JOUEUR = 1;                 // joueur courant
+var styleCase = "img/caseVideTrans.png";
 
 /**
  * change le joueur courant par le nouveau joueur
@@ -445,6 +446,7 @@ $(document).ready(function() {
         .click(function(){
         $(this).slideUp();
         $('#jeu').slideDown();
+        $('#boutonReset').fadeIn();
         initialiserPlateau();
     });
 

@@ -10,6 +10,7 @@ session_start();
 //$_POST['email']
 //$_POST['password']
 //s'ils existe, regarder si ils sont valides (en PHP)
+//sinon, le creer
 
 
 $obj = new stdClass();
