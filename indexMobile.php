@@ -58,7 +58,7 @@ body {
                         <div class="form-group">
                           <input type="password" placeholder="Password" class="form-control" id="password" name="password">
                         </div>
-                        <button type="submit" class="btn ">Login / sign in</button>
+                        <button type="submit" class="btn ">Login / Sign up</button>
                         </form>
 
                         <!--<button type="button" class="btn btn-success" id="bontonSign-in" style="margin-top: 7px;">Sign-in</button>
@@ -110,9 +110,13 @@ body {
 
                     <div id="message" class="row" style="display: none">
                         <div class="col-md-12">
-                            <h1 id="message-contenu">On ne devrait pas voir ca</h1>
+                            <h3 id="message-contenu">On ne devrait pas voir ca</h3>
                             <button type="button" class="btn btnfermer ui-btn ui-icon-delete ui-btn-icon-left ui-shadow-icon ui-btn-b" id="message-btn-fermer">Fermer</button>
                         </div>
+                    </div>
+
+                    <div id="invitationConnexion">
+                        <h3 style="text-align: center;">Veuillez vous connecter pour jouer. </h3>
                     </div>
 
                     <button type="button" class="ui-btn" id="boutonCreerPartie">CREER UNE PARTIE</button>

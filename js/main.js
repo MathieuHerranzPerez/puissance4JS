@@ -185,8 +185,6 @@ var verifierGain = function (numColonne, numLigne) {
     var nbAligne = 1;
     var couleur = $('#case' + numColonne + '' + numLigne).data('joueur');  //couleur de la nouvelle case
 
-    console.log(couleur);
-
 
     if(numLigne <= 2) {                                  //On regarde la colonne verticale
         for(var i = 1; i < 4; ++i) {
@@ -360,7 +358,7 @@ $(document).ready(function() {
                     $('#message-contenu').html(data.message);
                     $('#message').slideDown();
                     $('#boutonCreerPartie').fadeIn();
-                    //$('#bontonSign-in').fadeOut();
+                    $('#invitationConnexion').fadeOut();
                 }
             },
             error: function() {
@@ -389,9 +387,9 @@ $(document).ready(function() {
                     $('#message').slideDown();
                     $('#boutonCreerPartie').fadeOut();
                     $('#boutonReset').fadeOut();
-                    //$('#bontonSign-in').fadeIn();
                     $('#plateau').empty();
                     $('#fleches').empty();
+                    $('#invitationConnexion').fadeIn();
                 }
             },
             error: function() {
@@ -401,31 +399,6 @@ $(document).ready(function() {
         $(this).hide();
         return false;
     });
-/*
-    $('#form-sign-in').submit(function() {
-        $.ajax({
-            method: $(this).attr('method'),
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(data) {
-                if (typeof(data.message) != 'undefined') {
-                    $('#message-contenu').html(data.message);
-                    $('#message').slideDown();
-                }
-            },
-            error: function() {
-                alert('erreur');
-            }
-        });
-        $(this).hide();
-        return false;
-    });
-
-    $('#bontonSign-in').click(function() {
-        $('#form-sign-in').fadeIn();
-    });
-*/
 
     $('#boutonRegles').click(function() {
         $('#messageRegle').slideDown();
