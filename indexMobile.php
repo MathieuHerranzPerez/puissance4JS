@@ -19,8 +19,8 @@
         <script src="http://code.jquery.com/jquery-1.4.5.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <style>
-body {
-    padding-top: 50px;
+            body {
+                padding-top: 50px;
                 padding-bottom: 20px;
             }
         </style>
@@ -60,22 +60,6 @@ body {
                         </div>
                         <button type="submit" class="btn ">Login / Sign up</button>
                         </form>
-
-                        <!--<button type="button" class="btn btn-success" id="bontonSign-in" style="margin-top: 7px;">Sign-in</button>
-
-                        <form id="form-sign-in"
-                              class="navbar-form navbar-right"
-                              role="form" method="post"
-                              action="json_sign-in.php"
-                              style="display: none">
-                            <div class="form-group">
-                                <input type="text" placeholder="Ident" class="form-control" id="id" name="id">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" placeholder="Password" class="form-control" id="password" name="password">
-                            </div>
-                            <button type="submit" class="btn btn-success">Sign-in</button>
-                        </form> -->
 
                         <button type="button" class="ui-btn ui-icon-carat-d ui-shadow ui-corner-all ui-btn-icon-left ui-btn-inline" id="boutonRegles">Règles du jeu</button>
                         <form id="form-logout"

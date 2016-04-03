@@ -9,8 +9,8 @@ session_start();
 //regarder ce qu'il y a dans ces champs:
 //$_POST['email']
 //$_POST['password']
-//s'ils existe, regarder si ils sont valides (en PHP)
-//sinon, le creer
+//s'ils existent, regarder si ils sont valides (en PHP)
+//sinon, les creer
 
 
 $obj = new stdClass();

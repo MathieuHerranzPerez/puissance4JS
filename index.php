@@ -55,21 +55,6 @@
               </div>
               <button type="submit" class="btn btn-success">Login / Sign up</button>
             </form>
-            <!--<button type="button" class="btn btn-success" id="bontonSign-in" style="margin-top: 7px;">Sign-in</button>
-
-            <form id="form-sign-in"
-                  class="navbar-form navbar-right"
-                  role="form" method="post"
-                  action="json_sign-in.php"
-                  style="display: none">
-                <div class="form-group">
-                    <input type="text" placeholder="Ident" class="form-control" id="id" name="id">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" id="password" name="password">
-                </div>
-                <button type="submit" class="btn btn-success">Sign-in</button>
-            </form>-->
 
             <button type="button" class="btn btn-success" id="boutonRegles" style="margin-bottom: 7px;">Règles du jeu</button>
             <form id="form-logout"
